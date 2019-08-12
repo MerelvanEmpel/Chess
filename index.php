@@ -39,9 +39,11 @@ function putQueenSafeOnBoard(Board $board) {
       // If the queen is not in the dangerZone, add her dangerZone to the board,
       // and return her coordinates.
       if (!$queen->isInDangerZone($board)) {
-        // Add this queen's dangerZone to the board
-        $queen->addDangerZone($board);
-        // Add this coordinate to the array with queens on them
+        // Get this queen's dangerZone.
+        $dangerZone = $queen->addDangerZone($board);
+        // Update the board dangerZone.
+        $board->dangerZone = $dangerZone;
+        // Add this coordinate to the array with queens on them.
         $queensCoordinates = array($x, $y);
         // return the coordinates of this queen.
         return $queensCoordinates;

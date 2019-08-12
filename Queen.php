@@ -19,7 +19,11 @@ class Queen {
   }
 
   public function addDangerZone(Board &$board) {
-    $board->dangerZone = array();
+    $dangerZone = $board->dangerZone;
+    if($dangerZone == NULL) {
+      $dangerZone = array();
+    }
+
     $boardDimensionX = $board->dimensionX;
     $boardDimensionY = $board->dimensionY;
 
@@ -30,33 +34,34 @@ class Queen {
       || ($this->locationX < 0)
       || (!is_int($this->locationY))
       || ($this->locationY < 0)) {
-      return $board->dangerZone;
+      return $dangerZone;
     }
 
     // Loop over the squares on the board and see if they are in the danger zone.
     // If so, put the coordinates in the danger_zone array.
     for ($x=0; $x <= $board->dimensionX; $x++) {
       // Add to the vertical line of the queen as a danger zone.
-      $this->putCoordinateInDangerZone($x, $this->locationY, $board);
+      $this->putCoordinateInDangerZone($x, $this->locationY, $dangerZone);
       for ($y=0; $y <= $board->dimensionY; $y++) {
         // Add to the horizontal line of the queen as a danger zone.
-        $this->putCoordinateInDangerZone($this->locationX, $y, $board);
+        $this->putCoordinateInDangerZone($this->locationX, $y, $dangerZone);
         // If this coordinate is not in a diagonal line with the queen, continue.
         if (!$this->isInDiagonalLine($x, $y)) {
           continue(1);
         }
 
-        $this->putCoordinateInDangerZone($x, $y, $board);
+        $this->putCoordinateInDangerZone($x, $y, $dangerZone);
       }
     }
+    return $dangerZone;
   }
 
-  function putCoordinateInDangerZone($x, $y, $board) {
+  function putCoordinateInDangerZone($x, $y, &$dangerZone) {
     // If this coordinate is already in the dangerZone array, return.
-    if (in_array(array($x, $y), $board->dangerZone)) {
+    if (in_array(array($x, $y), $dangerZone)) {
       return;
     }
-    array_push($board->dangerZone, array($x, $y));
+    array_push($dangerZone, array($x, $y));
   }
 
   function isInDangerZone($board) {
