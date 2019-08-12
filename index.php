@@ -5,6 +5,7 @@
  * on one chess board without being able to overtake each other.
  */
 
+// Lazy loading of classes.
 spl_autoload_register(function ($class_name) {
   include $class_name . '.php';
 });
@@ -16,10 +17,12 @@ $board->dimensionX = 6;
 $board->dimensionY = 6;
 $queensArray = array();
 
+// Attempt to put 7 queens on the board.
 for ($i=0; $i<7; $i++) {
   array_push($queensArray, putQueenSafeOnBoard($board));
 }
 
+// Print the coordinates of all queens to the screen.
 print('<BR>');
 print('Queen coordinates:');
 foreach($queensArray as $coordinates) {
@@ -27,6 +30,13 @@ foreach($queensArray as $coordinates) {
   print_r($coordinates);
 }
 
+/**
+ * Puts a queen on the board, given the board with its current dangerZones.
+ *
+ * @param \Board $board
+ *
+ * @return array
+ */
 function putQueenSafeOnBoard(Board $board) {
   $queensCoordinates = array();
   // Create a new queen and try to put her on the board somewhere.
@@ -56,7 +66,14 @@ function putQueenSafeOnBoard(Board $board) {
   return $queensCoordinates;
 }
 
-function testDiagonalLineFunction(Queen $queen) {
+/**
+ * Test function to determine if the diagonal function is working properly.
+ *
+ * @param \Queen $queen
+ */
+function testDiagonalLineFunction() {
+  $queen = new Queen;
+
   // Put the queen on 1,1
   $queen->locationX = 1;
   $queen->locationY = 1;
@@ -69,15 +86,19 @@ function testDiagonalLineFunction(Queen $queen) {
   print($queen->isInDiagonalLine($testCoordinate[0],$testCoordinate[1]) ? 'TRUE' : 'FALSE');
   $testCoordinate = array(0,2);
   print('<BR>');
-  // Expected result: FALSE.
+  // Expected result: TRUE.
   print($queen->isInDiagonalLine($testCoordinate[0],$testCoordinate[1]) ? 'TRUE' : 'FALSE');
   $testCoordinate = array(2,0);
   print('<BR>');
-  // Expected result: FALSE.
+  // Expected result: TRUE.
   print($queen->isInDiagonalLine($testCoordinate[0],$testCoordinate[1]) ? 'TRUE' : 'FALSE');
   $testCoordinate = array(2,2);
   print('<BR>');
   // Expected result: TRUE.
+  print($queen->isInDiagonalLine($testCoordinate[0],$testCoordinate[1]) ? 'TRUE' : 'FALSE');
+  $testCoordinate = array(3,2);
+  print('<BR>');
+  // Expected result: FALSE.
   print($queen->isInDiagonalLine($testCoordinate[0],$testCoordinate[1]) ? 'TRUE' : 'FALSE');
 
   // Test impossible coordinates.

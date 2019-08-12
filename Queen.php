@@ -18,6 +18,13 @@ class Queen {
     return $this;
   }
 
+  /**
+   * Adds a danger zone to the dangerzone of the given board and returns it.
+   *
+   * @param \Board $board
+   *
+   * @return array
+   */
   public function addDangerZone(Board &$board) {
     $dangerZone = $board->dangerZone;
     if($dangerZone == NULL) {
@@ -56,6 +63,13 @@ class Queen {
     return $dangerZone;
   }
 
+  /**
+   * Adds the given coordinate to the given dangerZone.
+   *
+   * @param $x
+   * @param $y
+   * @param $dangerZone
+   */
   function putCoordinateInDangerZone($x, $y, &$dangerZone) {
     // If this coordinate is already in the dangerZone array, return.
     if (in_array(array($x, $y), $dangerZone)) {
@@ -64,6 +78,13 @@ class Queen {
     array_push($dangerZone, array($x, $y));
   }
 
+  /**
+   * Checks if this queen is in the danger zone of the board.
+   *
+   * @param $board
+   *
+   * @return bool|void
+   */
   function isInDangerZone($board) {
     if (empty($board->dangerZone)) {
       return;
@@ -74,6 +95,14 @@ class Queen {
     return FALSE;
   }
 
+  /**
+   * Checks if the given coordinate is in a diagonal line with this queen.
+   *
+   * @param $x
+   * @param $y
+   *
+   * @return bool
+   */
   function isInDiagonalLine($x, $y) {
     // If  we are missing any important variables, return FALSE.
     if ((!is_int($x))
@@ -87,7 +116,8 @@ class Queen {
       return FALSE;
     }
 
-    If (($x - $this->locationX) == ($y - $this->locationY)) {
+    // Turn the numbers to absolutes to ensure both ways of the diagonal are included.
+    If (abs(($x - $this->locationX)) == (abs($y - $this->locationY))) {
       return TRUE;
     }
 
