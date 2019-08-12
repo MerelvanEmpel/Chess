@@ -16,8 +16,15 @@ $board->dimensionX = 6;
 $board->dimensionY = 6;
 $queensArray = array();
 
-for ($i=0; $i<=7; $i++) {
+for ($i=0; $i<7; $i++) {
   array_push($queensArray, putQueenSafeOnBoard($board));
+}
+
+print('<BR>');
+print('Queen coordinates:');
+foreach($queensArray as $coordinates) {
+  print('<BR>');
+  print_r($coordinates);
 }
 
 function putQueenSafeOnBoard(Board $board) {
