@@ -4,7 +4,7 @@ class Board {
 
   private $dimensionX;
   private $dimensionY;
-  private $dangerZone;
+  public $dangerZone;
 
   public function __get($property) {
     if (property_exists($this, $property)) {
