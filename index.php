@@ -64,59 +64,5 @@ function putQueenSafeOnBoard(Board &$board) {
   return $queensCoordinates;
 }
 
-/**
- * Test function to determine if the diagonal function is working properly.
- *
- * @param \Queen $queen
- */
-function testDiagonalLineFunction() {
-  $queen = new Queen;
-
-  // Put the queen on 1,1
-  $queen->setLocationX(1);
-  $queen->setLocationX(1);
-
-  // Test the diagonal coordinates function for diagonal and non-diagonal coordinates
-  // below and above the queen.
-  $testCoordinate = array(0,0);
-  print '<BR>';
-  // Expected result: true.
-  print $queen->isInDiagonalLine($testCoordinate[0],$testCoordinate[1]) ? 'true' : 'false';
-  $testCoordinate = array(0,2);
-  print '<BR>';
-  // Expected result: true.
-  print $queen->isInDiagonalLine($testCoordinate[0],$testCoordinate[1]) ? 'true' : 'false';
-  $testCoordinate = array(2,0);
-  print '<BR>';
-  // Expected result: true.
-  print $queen->isInDiagonalLine($testCoordinate[0],$testCoordinate[1]) ? 'true' : 'false';
-  $testCoordinate = array(2,2);
-  print '<BR>';
-  // Expected result: true.
-  print $queen->isInDiagonalLine($testCoordinate[0],$testCoordinate[1]) ? 'true' : 'false';
-  $testCoordinate = array(3,2);
-  print '<BR>';
-  // Expected result: false.
-  print $queen->isInDiagonalLine($testCoordinate[0],$testCoordinate[1]) ? 'true' : 'false';
-
-  // Test impossible coordinates.
-  $testCoordinate = array(-1,-1);
-  print '<BR>';
-  // Expected result: false.
-  print $queen->isInDiagonalLine($testCoordinate[0],$testCoordinate[1]) ? 'true' : 'false';
-  $testCoordinate = array(-1,1);
-  print '<BR>';
-  // Expected result: false.
-  print $queen->isInDiagonalLine($testCoordinate[0],$testCoordinate[1]) ? 'true' : 'false';
-  $testCoordinate = array(-7,7);
-  print '<BR>';
-  // Expected result: false.
-  print $queen->isInDiagonalLine($testCoordinate[0],$testCoordinate[1]) ? 'true' : 'false';
-  $testCoordinate = array(-7,-7);
-  print '<BR>';
-  // Expected result: false.
-  print $queen->isInDiagonalLine($testCoordinate[0],$testCoordinate[1]) ? 'true' : 'false';
-}
-
 ?>
 

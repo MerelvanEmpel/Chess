@@ -121,6 +121,57 @@ class Queen {
     return false;
   }
 
+
+  /**
+   * Test function to determine if the diagonal function is working properly.
+   */
+  public function testDiagonalLineFunction() {
+    // Put the queen on 1,1
+    $this->setLocationX(1);
+    $this->setLocationY(1);
+
+    // Test the diagonal coordinates function for diagonal and non-diagonal coordinates
+    // below and above the queen.
+    $testCoordinate = array(0,0);
+    print '<BR>';
+    // Expected result: true.
+    print $this->isInDiagonalLine($testCoordinate[0],$testCoordinate[1]) ? 'true' : 'false';
+    $testCoordinate = array(0,2);
+    print '<BR>';
+    // Expected result: true.
+    print $this->isInDiagonalLine($testCoordinate[0],$testCoordinate[1]) ? 'true' : 'false';
+    $testCoordinate = array(2,0);
+    print '<BR>';
+    // Expected result: true.
+    print $this->isInDiagonalLine($testCoordinate[0],$testCoordinate[1]) ? 'true' : 'false';
+    $testCoordinate = array(2,2);
+    print '<BR>';
+    // Expected result: true.
+    print $this->isInDiagonalLine($testCoordinate[0],$testCoordinate[1]) ? 'true' : 'false';
+    $testCoordinate = array(3,2);
+    print '<BR>';
+    // Expected result: false.
+    print $this->isInDiagonalLine($testCoordinate[0],$testCoordinate[1]) ? 'true' : 'false';
+
+    // Test impossible coordinates.
+    $testCoordinate = array(-1,-1);
+    print '<BR>';
+    // Expected result: false.
+    print $this->isInDiagonalLine($testCoordinate[0],$testCoordinate[1]) ? 'true' : 'false';
+    $testCoordinate = array(-1,1);
+    print '<BR>';
+    // Expected result: false.
+    print $this->isInDiagonalLine($testCoordinate[0],$testCoordinate[1]) ? 'true' : 'false';
+    $testCoordinate = array(-7,7);
+    print '<BR>';
+    // Expected result: false.
+    print $this->isInDiagonalLine($testCoordinate[0],$testCoordinate[1]) ? 'true' : 'false';
+    $testCoordinate = array(-7,-7);
+    print '<BR>';
+    // Expected result: false.
+    print $this->isInDiagonalLine($testCoordinate[0],$testCoordinate[1]) ? 'true' : 'false';
+  }
+
 }
 
 ?>
