@@ -3,6 +3,7 @@
 class Queen {
   private $locationX;
   private $locationY;
+  private $dangerZone = Array();
 
   /**
    * @return mixed
@@ -16,6 +17,13 @@ class Queen {
    */
   public function getLocationY() {
     return $this->locationY;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getDangerZone() {
+    return $this->dangerZone;
   }
 
   /**
@@ -43,57 +51,63 @@ class Queen {
   }
 
   /**
-   * Adds a danger zone to the dangerzone of the given board.
-   *
-   * @param \Board $board
-   *
-   * @return array
+   * @param mixed $dangerZone
    */
-  public function addDangerZoneToBoard(Board $board) {
-    $boardDimensionX = $board->getDimensionX();
-    $boardDimensionY = $board->getDimensionY();
-
-    // If  we are missing any important variables,stop.
-    if (empty($boardDimensionX)) {
-      throw new UnexpectedValueException('Board dimensionX not set.');
-    }
-    if (empty($boardDimensionY)) {
-      throw new UnexpectedValueException('Board dimensionY not set.');
-    }
-
-    // Loop over the squares on the board and see if they are in the danger zone.
-    // If so, put the coordinates in the danger_zone array.
-    for ($x=0; $x <= $boardDimensionX-1; $x++) {
-      // Add to the vertical line of the queen as a danger zone.
-      $board->putCoordinateInDangerZone($x, $this->locationY);
-      for ($y=0; $y <= $boardDimensionY-1; $y++) {
-        // Add to the horizontal line of the queen as a danger zone.
-        $board->putCoordinateInDangerZone($this->locationX, $y);
-        // If this coordinate is not in a diagonal line with the queen, continue.
-        if (!$this->isInDiagonalLine($x, $y)) {
-          continue 1;
-        }
-
-        $board->putCoordinateInDangerZone($x, $y);
-      }
-    }
+  private function setDangerZone(Array $dangerZone) {
+    $this->dangerZone = $dangerZone;
   }
 
   /**
-   * Checks if this queen is in the danger zone of the board.
+   * Returns a method to set the danger zone of this queen.
    *
-   * @param $board
-   *
-   * @return bool
+   * @return \Closure
    */
-  public function isInDangerZone($board) {
-    if (empty($board->getDangerZone())) {
-      return false;
+  public function getDangerZoneMethod() {
+    // Sets the danger zone of this queen.
+    return function ($boardDimensionX, $boardDimensionY) {
+      // If  we are missing any important variables,stop.
+      if (empty($boardDimensionX)) {
+        throw new UnexpectedValueException('Board dimensionX not set.');
+      }
+      if (empty($boardDimensionY)) {
+        throw new UnexpectedValueException('Board dimensionY not set.');
+      }
+
+      // Loop over the squares on the board and see if they are in the danger zone.
+      // If so, put the coordinates in the danger_zone array.
+      for ($x=0; $x <= $boardDimensionX-1; $x++) {
+        // Add to the vertical line of the queen as a danger zone.
+        $this->putCoordinateInDangerZone($x, $this->locationY);
+        for ($y=0; $y <= $boardDimensionY-1; $y++) {
+          // Add to the horizontal line of the queen as a danger zone.
+          $this->putCoordinateInDangerZone($this->locationX, $y);
+          // If this coordinate is not in a diagonal line with the queen, continue.
+          if (!$this->isInDiagonalLine($x, $y)) {
+            continue 1;
+          }
+
+          $this->putCoordinateInDangerZone($x, $y);
+        }
+      }
+    };
+  }
+
+  /**
+   * Adds the given coordinate to the given dangerZone.
+   *
+   * @param $x
+   * @param $y
+   */
+  private function putCoordinateInDangerZone($x, $y) {
+    $dangerZone = $this->getDangerZone();
+
+    // If this coordinate is already in the dangerZone array, return.
+    if (in_array(array($x, $y), $dangerZone)) {
+      return;
     }
-    if (in_array(array($this->locationX, $this->locationY), $board->getDangerZone())) {
-      return true;
-    }
-    return false;
+    array_push($dangerZone, array($x, $y));
+
+    $this->setDangerZone($dangerZone);
   }
 
   /**
@@ -104,7 +118,7 @@ class Queen {
    *
    * @return bool
    */
-  public function isInDiagonalLine($x, $y) {
+  private function isInDiagonalLine($x, $y) {
     // If  x or y are invalid, return false.
     if ((!is_int($x))
       || ($x < 0)
