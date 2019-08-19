@@ -100,10 +100,10 @@ class Queen {
    * @return bool|void
    */
   function isInDangerZone($board) {
-    if (empty($board->dangerZone)) {
+    if (empty($board->getDangerZone())) {
       return;
     }
-    if (in_array(array($this->locationX, $this->locationY), $board->dangerZone)) {
+    if (in_array(array($this->locationX, $this->locationY), $board->getDangerZone())) {
       return TRUE;
     }
     return FALSE;

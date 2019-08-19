@@ -4,7 +4,7 @@ class Board {
 
   private $dimensionX;
   private $dimensionY;
-  public $dangerZone;
+  private $dangerZone;
 
   /**
    * @return mixed
