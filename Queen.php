@@ -50,15 +50,15 @@ class Queen {
    * @return array
    */
   public function addDangerZoneToBoard(Board &$board) {
-    $dangerZone = $board->getDangerZone();
-
     $boardDimensionX = $board->getDimensionX();
     $boardDimensionY = $board->getDimensionY();
 
     // If  we are missing any important variables,stop.
-    if (empty($boardDimensionX)
-      || empty($boardDimensionY)) {
-      return $dangerZone;
+    if (empty($boardDimensionX)) {
+      throw new UnexpectedValueException('Board dimensionX not set.');
+    }
+    if (empty($boardDimensionY)) {
+      throw new UnexpectedValueException('Board dimensionY not set.');
     }
 
     // Loop over the squares on the board and see if they are in the danger zone.
