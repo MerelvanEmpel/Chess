@@ -12,9 +12,9 @@ spl_autoload_register(function ($class_name) {
 
 $board = new Board();
 
-// The board is 7x7, the values range from 0 till 6.
-$board->setDimensionX(6);
-$board->setDimensionY(6);
+// The board is 7x7.
+$board->setDimensionX(7);
+$board->setDimensionY(7);
 $queensArray = array();
 
 // Attempt to put 7 queens on the board.
@@ -42,8 +42,8 @@ function putQueenSafeOnBoard(Board &$board) {
   // Create a new queen and try to put her on the board somewhere.
   // If it is not safe, move her and check if it's safe untill a safe spot is found.
   $queen = new Queen();
-  for ($x=0; $x <= $board->getDimensionX(); $x++) {
-    for ($y=0; $y <= $board->getDimensionY(); $y++) {
+  for ($x=0; $x <= $board->getDimensionX()-1; $x++) {
+    for ($y=0; $y <= $board->getDimensionY()-1; $y++) {
       $queen->setLocationX($x);
       $queen->setLocationY($y);
       // If the queen is not in the dangerZone, add her dangerZone to the board,

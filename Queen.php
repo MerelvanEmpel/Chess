@@ -66,10 +66,10 @@ class Queen {
 
     // Loop over the squares on the board and see if they are in the danger zone.
     // If so, put the coordinates in the danger_zone array.
-    for ($x=0; $x <= $boardDimensionX; $x++) {
+    for ($x=0; $x <= $boardDimensionX-1; $x++) {
       // Add to the vertical line of the queen as a danger zone.
       $board->putCoordinateInDangerZone($x, $this->locationY);
-      for ($y=0; $y <= $boardDimensionY; $y++) {
+      for ($y=0; $y <= $boardDimensionY-1; $y++) {
         // Add to the horizontal line of the queen as a danger zone.
         $board->putCoordinateInDangerZone($this->locationX, $y);
         // If this coordinate is not in a diagonal line with the queen, continue.
