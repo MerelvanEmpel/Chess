@@ -13,8 +13,8 @@ spl_autoload_register(function ($class_name) {
 $board = new Board();
 
 // The board is 7x7, the values range from 0 till 6.
-$board->dimensionX = 6;
-$board->dimensionY = 6;
+$board->setDimensionX(6);
+$board->setDimensionY(6);
 $queensArray = array();
 
 // Attempt to put 7 queens on the board.
@@ -42,17 +42,17 @@ function putQueenSafeOnBoard(Board $board) {
   // Create a new queen and try to put her on the board somewhere.
   // If it is not safe, move her and check if it's safe untill a safe spot is found.
   $queen = new Queen();
-  for ($x=0; $x <= $board->dimensionX; $x++) {
-    for ($y=0; $y <= $board->dimensionY; $y++) {
-      $queen->locationX = $x;
-      $queen->locationY = $y;
+  for ($x=0; $x <= $board->getDimensionX(); $x++) {
+    for ($y=0; $y <= $board->getDimensionY(); $y++) {
+      $queen->setLocationX($x);
+      $queen->setLocationY($y);
       // If the queen is not in the dangerZone, add her dangerZone to the board,
       // and return her coordinates.
       if (!$queen->isInDangerZone($board)) {
         // Get this queen's dangerZone.
-        $dangerZone = $queen->addDangerZone($board);
+        $dangerZone = $queen->addDangerZoneToBoard($board);
         // Update the board dangerZone.
-        $board->dangerZone = $dangerZone;
+        $board->setDangerZone($dangerZone);
         // Add this coordinate to the array with queens on them.
         $queensCoordinates = array($x, $y);
         // return the coordinates of this queen.
@@ -75,8 +75,8 @@ function testDiagonalLineFunction() {
   $queen = new Queen;
 
   // Put the queen on 1,1
-  $queen->locationX = 1;
-  $queen->locationY = 1;
+  $queen->setLocationX(1);
+  $queen->setLocationX(1);
 
   // Test the diagonal coordinates function for diagonal and non-diagonal coordinates
   // below and above the queen.

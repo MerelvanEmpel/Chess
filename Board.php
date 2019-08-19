@@ -6,20 +6,47 @@ class Board {
   private $dimensionY;
   public $dangerZone;
 
-  public function __get($property) {
-    if (property_exists($this, $property)) {
-      return $this->$property;
-    }
+  /**
+   * @return mixed
+   */
+  public function getDimensionX() {
+    return $this->dimensionX;
   }
 
-  public function __set($property, $value) {
-    if (property_exists($this, $property)) {
-      $this->$property = $value;
-    }
-
-    return $this;
+  /**
+   * @return mixed
+   */
+  public function getDimensionY() {
+    return $this->dimensionY;
   }
 
+  /**
+   * @return mixed
+   */
+  public function getDangerZone() {
+    return $this->dangerZone;
+  }
+
+  /**
+   * @param mixed $dimensionX
+   */
+  public function setDimensionX($dimensionX) {
+    $this->dimensionX = $dimensionX;
+  }
+
+  /**
+   * @param mixed $dimensionY
+   */
+  public function setDimensionY($dimensionY) {
+    $this->dimensionY = $dimensionY;
+  }
+
+  /**
+   * @param mixed $dangerZone
+   */
+  public function setDangerZone($dangerZone) {
+    $this->dangerZone = $dangerZone;
+  }
 }
 
 ?>

@@ -4,18 +4,32 @@ class Queen {
   private $locationX;
   private $locationY;
 
-  public function __get($property) {
-    if (property_exists($this, $property)) {
-      return $this->$property;
-    }
+  /**
+   * @return mixed
+   */
+  public function getLocationX() {
+    return $this->locationX;
   }
 
-  public function __set($property, $value) {
-    if (property_exists($this, $property)) {
-      $this->$property = $value;
-    }
+  /**
+   * @return mixed
+   */
+  public function getLocationY() {
+    return $this->locationY;
+  }
 
-    return $this;
+  /**
+   * @param mixed $locationX
+   */
+  public function setLocationX($locationX) {
+    $this->locationX = $locationX;
+  }
+
+  /**
+   * @param mixed $locationY
+   */
+  public function setLocationY($locationY) {
+    $this->locationY = $locationY;
   }
 
   /**
@@ -25,14 +39,14 @@ class Queen {
    *
    * @return array
    */
-  public function addDangerZone(Board &$board) {
-    $dangerZone = $board->dangerZone;
+  public function addDangerZoneToBoard(Board &$board) {
+    $dangerZone = $board->getDangerZone();
     if($dangerZone == NULL) {
       $dangerZone = array();
     }
 
-    $boardDimensionX = $board->dimensionX;
-    $boardDimensionY = $board->dimensionY;
+    $boardDimensionX = $board->getDimensionX();
+    $boardDimensionY = $board->getDimensionY();
 
     // If  we are missing any important variables,stop.
     if (empty($boardDimensionX)
@@ -46,10 +60,10 @@ class Queen {
 
     // Loop over the squares on the board and see if they are in the danger zone.
     // If so, put the coordinates in the danger_zone array.
-    for ($x=0; $x <= $board->dimensionX; $x++) {
+    for ($x=0; $x <= $boardDimensionX; $x++) {
       // Add to the vertical line of the queen as a danger zone.
       $this->putCoordinateInDangerZone($x, $this->locationY, $dangerZone);
-      for ($y=0; $y <= $board->dimensionY; $y++) {
+      for ($y=0; $y <= $boardDimensionY; $y++) {
         // Add to the horizontal line of the queen as a danger zone.
         $this->putCoordinateInDangerZone($this->locationX, $y, $dangerZone);
         // If this coordinate is not in a diagonal line with the queen, continue.
