@@ -43,13 +43,13 @@ class Queen {
   }
 
   /**
-   * Adds a danger zone to the dangerzone of the given board and returns it.
+   * Adds a danger zone to the dangerzone of the given board.
    *
    * @param \Board $board
    *
    * @return array
    */
-  public function addDangerZoneToBoard(Board &$board) {
+  public function addDangerZoneToBoard(Board $board) {
     $boardDimensionX = $board->getDimensionX();
     $boardDimensionY = $board->getDimensionY();
 
