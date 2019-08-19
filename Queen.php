@@ -51,9 +51,6 @@ class Queen {
    */
   public function addDangerZoneToBoard(Board &$board) {
     $dangerZone = $board->getDangerZone();
-    if($dangerZone == null) {
-      $dangerZone = array();
-    }
 
     $boardDimensionX = $board->getDimensionX();
     $boardDimensionY = $board->getDimensionY();
